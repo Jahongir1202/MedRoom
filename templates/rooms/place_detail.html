@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h2>{{ object.name }} {{ object.last_name }} haqida</h2>
+  <ul>
+      <li>Xona: {{ object.med_room.room }}</li>
+      <li>Joy: {{ object.get_place_slot_display }}</li>
+      <li>Ish: {{ object.job }}</li>
+      <li>Telefon: {{ object.phone_number }}</li>
+      <li>Keltirgan: {{ object.brought }}</li>
+      <li>Narx: {{ object.price }}</li>
+      <li>Xamshira narxi: {{ object.price_nurse }}</li>
+      <li>Kunlar: {{ object.day }}</li>
+  </ul>
+  <a href="{% url 'place-update' object.id %}">Tahrirlash</a> |
+  <a href="{% url 'place-delete' object.id %}">O‘chirish</a> |
+  <a href="{% url 'medroom-list' %}">Orqaga</a>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <h2>Rostdan ham o‘chirmoqchimisiz?</h2>
+  <p>{{ object.name }} {{ object.last_name }} - {{ object.place_slot }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Ha, o‘chir</button>
+    <a href="{% url 'medroom-list' %}">Bekor qilish</a>
+  </form>
+
+</body>
+</html>

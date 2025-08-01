@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Xarajatni tahrirlash</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Ism:</label>
+        <input type="text" name="name" value="{{ expense.name }}"><br>
+
+        <label>Familiya:</label>
+        <input type="text" name="last_name" value="{{ expense.last_name }}"><br>
+
+        <label>Izoh:</label>
+        <input type="text" name="text" value="{{ expense.text }}"><br>
+
+        <label>Narx:</label>
+        <input type="number" name="price" value="{{ expense.price }}"><br>
+
+        <button type="submit">Saqlash</button>
+    </form>
+
+</body>
+</html>

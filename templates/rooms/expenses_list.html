@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Xarajatlar</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Ism</th>
+            <th>Familiya</th>
+            <th>Izoh</th>
+            <th>Narx</th>
+            <th>Xona</th>
+            <th>Joy</th>
+            <th>Amallar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense.name }}</td>
+            <td>{{ expense.last_name }}</td>
+            <td>{{ expense.text }}</td>
+            <td>{{ expense.price }}</td>
+            <td>{{ expense.room }}</td>
+            <td>{{ expense.place }}</td>
+            <td>
+                <a href="{% url 'edit_expense' expense.id %}">Tahrirlash</a> |
+                <a href="{% url 'delete_expense' expense.id %}">O'chirish</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Jami xarajatlar: {{ total_expenses }} so'm</h3>
+<h3>Jami band joylar narxi: {{ total_rented_price }} so'm</h3>
+
+</body>
+</html>
