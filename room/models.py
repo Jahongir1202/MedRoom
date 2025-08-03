@@ -35,6 +35,21 @@ class Place(models.Model):
     day = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_rented = models.BooleanField(default=False)
+    Labaratoria = models.IntegerField(blank=True,null=True)
+    UZI = models.IntegerField(blank=True, null=True)
+    Izoh = models.CharField(max_length=200,blank=True)
+
+    @property
+    def labaratoriya_total(self):
+        if self.Labaratoria and self.day:
+            return self.Labaratoria * self.day
+        return 0
+
+    @property
+    def UZI_total(self):
+        if self.UZI and self.day:
+            return self.UZI * self.day
+        return 0
 
 
     @property
@@ -51,7 +66,7 @@ class Place(models.Model):
 
     @property
     def total_cost(self):
-        return self.price_total + self.nurse_total
+        return self.price_total + self.nurse_total+self.labaratoriya_total+self.UZI_total
 
     def __str__(self):
         return f"{self.name} - {self.place_slot} - Room {self.med_room.room}"

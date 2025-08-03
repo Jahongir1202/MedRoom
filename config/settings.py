@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os.path
 from pathlib import Path
+from urllib.request import localhost
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,9 @@ SECRET_KEY = 'django-insecure-h8w^aabi@sh*setb8lef9lq8bffdz*^484t)97ou(s=y=9_wi7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost',
+    '127.0.0.1',
+    'ebab223b6add.ngrok-free.app',]
 
 
 # Application definition
@@ -121,3 +124,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000','https://ebab223b6add.ngrok-free.app']

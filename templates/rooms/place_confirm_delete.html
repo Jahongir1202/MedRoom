@@ -1,18 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>O‘chirishni Tasdiqlang</title>
+  <style>
+    body {
+      background: #f4f6f8;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #555;
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button, a {
+      text-decoration: none;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    button {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+    }
+
+    a {
+      background-color: #bdc3c7;
+      color: #2c3e50;
+    }
+
+    a:hover {
+      background-color: #95a5a6;
+    }
+  </style>
 </head>
 <body>
-  <h2>Rostdan ham o‘chirmoqchimisiz?</h2>
-  <p>{{ object.name }} {{ object.last_name }} - {{ object.place_slot }}</p>
+  <div class="card">
+    <h2>Rostdan ham o‘chirmoqchimisiz?</h2>
+    <p><strong>{{ object.name }} {{ object.last_name }}</strong><br>Joy: {{ object.place_slot }}</p>
 
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit">Ha, o‘chir</button>
-    <a href="{% url 'medroom-list' %}">Bekor qilish</a>
-  </form>
-
+    <form method="post">
+      {% csrf_token %}
+      <div class="btn-group">
+        <button type="submit">Ha, o‘chir</button>
+        <a href="{% url 'medroom-list' %}">Bekor qilish</a>
+      </div>
+    </form>
+  </div>
 </body>
 </html>

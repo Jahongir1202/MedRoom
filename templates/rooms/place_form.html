@@ -1,6 +1,148 @@
-<h2>Joy band qilish</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Saqlash</button>
-</form>
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Joy band qilish</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fafafa;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #1d72b8;
+            outline: none;
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1d72b8;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #155d8b;
+        }
+
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Joy band qilish</h2>
+    <form method="post">
+        {% csrf_token %}
+
+
+
+        <div class="form-group">
+            <label for="id_is_full_room">Xona to‘liq bandmi?</label>
+            {{ form.is_full_room }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_name">Ism:</label>
+            <input type="text" name="name" id="id_name" value="{{ form.name.value }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="id_last_name">Familiya:</label>
+            <input type="text" name="last_name" id="id_last_name" value="{{ form.last_name.value }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="id_job">Kasbi:</label>
+            <input type="text" name="job" id="id_job" value="{{ form.job.value }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_phone_number">Telefon raqam:</label>
+            <input type="number" name="phone_number" id="id_phone_number" value="{{ form.phone_number.value }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_brought">Qarovchi</label>
+            <input type="text" name="brought" id="id_brought" value="{{ form.brought.value }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_price">Xona narxi:</label>
+            <input type="number" name="price" id="id_price" value="{{ form.price.value }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_price_nurse">Hamshira narxi:</label>
+            <input type="number" name="price_nurse" id="id_price_nurse" value="{{ form.price_nurse.value }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_day">Kun:</label>
+            <input type="number" name="day" id="id_day" value="{{ form.day.value }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_Labaratoria">Labaratoriya:</label>
+            <input type="number" name="Labaratoria" id="id_Labaratoria" value="{{ form.Labaratoria.value }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_UZI">UZI:</label>
+            <input type="number" name="UZI" id="id_UZI" value="{{ form.UZI.value }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_Izoh">Izoh:</label>
+            <textarea name="Izoh" id="id_Izoh">{{ form.Izoh.value }}</textarea>
+        </div>
+
+        <button type="submit">Saqlash</button>
+    </form>
+</div>
+</body>
+</html>

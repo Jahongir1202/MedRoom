@@ -2,23 +2,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Kirish</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        form p {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2575fc;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1a5ed0;
+        }
+
+        .messages {
+            margin-top: 15px;
+            color: #e74c3c;
+            text-align: center;
+        }
+
+        ul {
+            padding-left: 0;
+            list-style: none;
+        }
+    </style>
 </head>
 <body>
-  <h2>Login</h2>
-  <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Kirish</button>
-  </form>
+<div class="login-container">
+    <h2>Kirish</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Kirish</button>
+    </form>
 
-  {% if messages %}
-    <ul>
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-
+    {% if messages %}
+        <div class="messages">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
 </body>
 </html>

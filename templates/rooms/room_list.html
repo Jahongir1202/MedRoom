@@ -64,6 +64,7 @@
   {% endif %}
 
   <h1 class="text-center mb-5">🏥 Xonalar ro'yxati</h1>
+  <h3>Jami Mijoslar narxi <span id="total-sum">0 </span>so'm</h3>
 
   <div class="row">
     {% for room in rooms %}
@@ -79,14 +80,15 @@
                   {% if place %}
                     <strong>{{ slot }}:</strong>
                     {% if place.is_full_room %}
-                      <span class="full-room">Xona to‘liq band – {{ place.name }} {{ place.last_name }}</span><br>
+                      <span class="full-room-flag">Xona to‘liq band – {{ place.name }} {{ place.last_name }}</span><br>
                     {% else %}
                       {{ place.name }} {{ place.last_name }}<br>
                     {% endif %}
                     📅 {{ place.day }} kun |
                     💰 Xona: {{ place.price }} × {{ place.day }} = <strong>{{ place.price_total }}</strong><br>
                     👩‍⚕️ Hamshira: {{ place.price_nurse }} × {{ place.day }} = <strong>{{ place.nurse_total }}</strong><br>
-                    🧾 Jami: <strong>{{ place.total_cost }}</strong><br>
+                    🧾 Jami: <strong class="place-total" data-total="{{ place.total_cost }}">{{ place.total_cost }}</strong><br>
+
                     <div class="mt-2">
                       <a href="{% url 'place-detail' place.id %}" class="btn btn-sm btn-info">👁 Ko‘rish</a>
                       {% if not place.is_full_room %}
@@ -97,7 +99,7 @@
                   {% else %}
                     <strong>{{ slot }}:</strong>
                     <span class="empty-slot">🟢 Bo‘sh</span>
-                    <a href="{% url 'place-create' room.id slot %}" class="btn btn-sm btn-success ms-2">➕ Band qilish</a>
+                    <a href="{% url 'place-create' room.id slot %}" class="btn btn-sm btn-success ms-2 band-btn">➕ Band qilish</a>
                   {% endif %}
                 {% endwith %}
               </li>
@@ -184,6 +186,35 @@
   <h4 class="mt-4">💰 Jami xarajatlar: <strong>{{ total_expenses }}</strong> so‘m</h4>
 
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let totalSum = 0;
+    const totals = document.querySelectorAll('.place-total');
+
+    totals.forEach(function(item) {
+        const cost = parseFloat(item.getAttribute('data-total'));
+        if (!isNaN(cost)) {
+            totalSum += cost;
+        }
+    });
+
+    document.getElementById('total-sum').innerText = totalSum;
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const fullRooms = document.querySelectorAll('.full-room-flag');
+
+    fullRooms.forEach(function(roomFlag) {
+        // Shu "full-room-flag" elementiga eng yaqin .room-card ichida bo'lgan .band-btn tugmalarini topamiz
+        const roomCard = roomFlag.closest('.room-card');
+        if (roomCard) {
+            const bandButtons = roomCard.querySelectorAll('.band-btn');
+            bandButtons.forEach(function(btn) {
+                btn.style.display = 'none';
+            });
+        }
+    });
+});
+</script>
 
 </body>
 </html>

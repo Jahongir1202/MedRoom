@@ -1,24 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>{{ object.name }} haqida</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 40px;
+    }
+    .card {
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      background-color: #fff;
+    }
+    .card-header {
+      background-color: #4a69bd;
+      color: white;
+      border-radius: 15px 15px 0 0;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+    .list-group-item {
+      border: none;
+      padding-left: 25px;
+    }
+    .btn-group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .btn {
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h2>{{ object.name }} {{ object.last_name }} haqida</h2>
-  <ul>
-      <li>Xona: {{ object.med_room.room }}</li>
-      <li>Joy: {{ object.get_place_slot_display }}</li>
-      <li>Ish: {{ object.job }}</li>
-      <li>Telefon: {{ object.phone_number }}</li>
-      <li>Keltirgan: {{ object.brought }}</li>
-      <li>Narx: {{ object.price }}</li>
-      <li>Xamshira narxi: {{ object.price_nurse }}</li>
-      <li>Kunlar: {{ object.day }}</li>
+
+<div class="card">
+  <div class="card-header">
+    {{ object.name }} {{ object.last_name }} haqida
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><strong>Ism:</strong> {{ object.name }}</li>
+    <li class="list-group-item"><strong>Xona:</strong> {{ object.last_name }}</li>
+    <li class="list-group-item"><strong>Xona:</strong> {{ object.med_room.room }}</li>
+    <li class="list-group-item"><strong>Joy:</strong> {{ object.get_place_slot_display }}</li>
+    <li class="list-group-item"><strong>Ish:</strong> {{ object.job }}</li>
+    <li class="list-group-item"><strong>Telefon:</strong> {{ object.phone_number }}</li>
+    <li class="list-group-item"><strong>Qarovchi:</strong> {{ object.brought }}</li>
+    <li class="list-group-item"><strong>Narx:</strong> {{ object.price }}</li>
+    <li class="list-group-item"><strong>Xamshira narxi:</strong> {{ object.price_nurse }}</li>
+    <li class="list-group-item"><strong>Kunlar:</strong> {{ object.day }}</li>
+    <li class="list-group-item"><strong>Labaratoria:</strong> {{ object.Labaratoria }}</li>
+    <li class="list-group-item"><strong>UZI:</strong> {{ object.UZI }}</li>
+    <li class="list-group-item"><strong>Sharx:</strong> {{ object.Izoh }}</li>
   </ul>
-  <a href="{% url 'place-update' object.id %}">Tahrirlash</a> |
-  <a href="{% url 'place-delete' object.id %}">O‘chirish</a> |
-  <a href="{% url 'medroom-list' %}">Orqaga</a>
+  <div class="card-body btn-group">
+    <a href="{% url 'place-update' object.id %}" class="btn btn-warning">✏️ Tahrirlash</a>
+    <a href="{% url 'place-delete' object.id %}" class="btn btn-danger">🗑️ O‘chirish</a>
+    <a href="{% url 'medroom-list' %}" class="btn btn-secondary">⬅️ Orqaga</a>
+  </div>
+</div>
 
 </body>
 </html>

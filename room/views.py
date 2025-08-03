@@ -36,6 +36,7 @@ def medroom_list(request):
     expenses = Expenses.objects.all()
     total_expenses = sum(e.price for e in expenses)
 
+
     return render(request, 'rooms/room_list.html', {
         'rooms': rooms,
         'slots': slots,
@@ -43,7 +44,6 @@ def medroom_list(request):
         'expenses': expenses,
         'total_expenses': total_expenses,
     })
-
 
 def place_create(request, room_id, slot):
     medroom = get_object_or_404(MedRoom, id=room_id)
