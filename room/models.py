@@ -1,3 +1,5 @@
+from django.utils import timezone  # ✅ To‘g‘ri
+
 from django.db import models
 
 class MedRoom(models.Model):
@@ -91,3 +93,10 @@ class Expenses(models.Model):
 
     def __str__(self):
         return f"{self.name} {self.last_name} - {self.price}"
+
+class DailyReport(models.Model):
+    date = models.DateField(default=timezone.now, unique=True)
+    total_price = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.date} - {self.total_price} so'm"

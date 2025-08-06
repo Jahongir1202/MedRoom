@@ -20,3 +20,4 @@ def clear_expired_places():
             place.day = None
             place.is_full_room = False
             place.save()
+

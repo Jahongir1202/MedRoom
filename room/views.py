@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DeleteView, DetailView
 from django.contrib import messages
-
+from datetime import date
+from .models import DailyReport
 from .models import MedRoom, Place, Login, Expenses
 from .forms import PlaceForm, LoginForm, ExpensesForm
 from .tasks import clear_expired_places
@@ -36,13 +37,14 @@ def medroom_list(request):
     expenses = Expenses.objects.all()
     total_expenses = sum(e.price for e in expenses)
 
-
+    daily_reports = DailyReport.objects.order_by('-date')[:10]
     return render(request, 'rooms/room_list.html', {
         'rooms': rooms,
         'slots': slots,
         'username': username,
         'expenses': expenses,
         'total_expenses': total_expenses,
+        'daily_reports': daily_reports,
     })
 
 def place_create(request, room_id, slot):
@@ -54,7 +56,9 @@ def place_create(request, room_id, slot):
             place = form.save(commit=False)
             place.med_room = medroom
             place.place_slot = slot
+            place.is_rented = True
             place.save()
+            update_daily_report()
             return redirect('medroom-list')
     else:
         form = PlaceForm()
@@ -69,6 +73,13 @@ class PlaceUpdateView(UpdateView):
     form_class = PlaceForm
     template_name = 'rooms/place_form.html'
     success_url = reverse_lazy('medroom-list')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        from .services import update_daily_report
+        update_daily_report()  # 🟢 YANGILAB QO‘YAMIZ
+        return response
+
 
 class PlaceDeleteView(DeleteView):
     model = Place
@@ -121,3 +132,18 @@ def delete_expense(request, pk):
         expense.delete()
         return redirect('medroom-list')  # ✅ tuzatildi
     return render(request, 'delete_expense.html', {'expense': expense})
+
+
+def update_daily_report():
+    today = date.today()
+
+    # Bugungi band qilingan joylarni olish
+    todays_places = Place.objects.filter(created_at__date=today, is_rented=True)
+
+    # Jami narxni hisoblash
+    total_price = sum(place.total_cost for place in todays_places)
+
+    # Agar bugungi sana uchun record bor bo‘lsa yangilaydi, bo‘lmasa yaratadi
+    report, created = DailyReport.objects.get_or_create(date=today)
+    report.total_price = total_price
+    report.save()

@@ -186,6 +186,25 @@
   <h4 class="mt-4">💰 Jami xarajatlar: <strong>{{ total_expenses }}</strong> so‘m</h4>
 
 </div>
+<hr class="my-5">
+<h2 class="mb-3">📊 Kunlik Hisobotlar</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Sana</th>
+      <th>Jami narx</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for report in daily_reports %}
+      <tr>
+        <td>{{ report.date }}</td>
+        <td>{{ report.total_price }} so'm</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let totalSum = 0;
