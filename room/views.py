@@ -133,7 +133,6 @@ def delete_expense(request, pk):
         return redirect('medroom-list')  # ✅ tuzatildi
     return render(request, 'delete_expense.html', {'expense': expense})
 
-
 def update_daily_report():
     today = date.today()
 

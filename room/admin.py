@@ -1,13 +1,18 @@
 # admin.py
 from django import forms
 from django.contrib import admin
-from .models import MedRoom, Place, Login, Expenses
+from .models import MedRoom, Place, Login, Expenses, DailyReport
 
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
-    list_display = ['name', 'last_name', 'phone_number']
+    list_display = ['name', 'last_name', 'phone_number', 'formatted_created_at']
     search_fields = ['name', 'last_name']
+    ordering = ['-created_at']  # eng yangi yozuvlar birinchi
+
+    def formatted_created_at(self, obj):
+        return obj.created_at.strftime("%d-%m-%Y %H:%M")
+    formatted_created_at.short_description = 'Qo‘shilgan vaqt'
 
 @admin.register(MedRoom)
 class MedRoomAdmin(admin.ModelAdmin):
@@ -16,6 +21,9 @@ class MedRoomAdmin(admin.ModelAdmin):
 class LoginAdmin(admin.ModelAdmin):
     list_display = ['username','password']
 
+@admin.register(DailyReport)
+class DailyReportAdmin(admin.ModelAdmin):
+    list_display = ['total_price']
 
 
 class ExpensesAdminForm(forms.ModelForm):
