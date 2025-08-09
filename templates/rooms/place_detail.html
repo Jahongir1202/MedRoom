@@ -46,11 +46,13 @@
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item"><strong>Ism:</strong> {{ object.name }}</li>
-    <li class="list-group-item"><strong>Xona:</strong> {{ object.last_name }}</li>
+    <li class="list-group-item"><strong>Familiya:</strong> {{ object.last_name }}</li>
     <li class="list-group-item"><strong>Xona:</strong> {{ object.med_room.room }}</li>
     <li class="list-group-item"><strong>Joy:</strong> {{ object.get_place_slot_display }}</li>
     <li class="list-group-item"><strong>Ish:</strong> {{ object.job }}</li>
+    <li class="list-group-item"><strong>Yashash manzil:</strong> {{ object.yashash_manzil }}</li>
     <li class="list-group-item"><strong>Telefon:</strong> {{ object.phone_number }}</li>
+    <li class="list-group-item"><strong>Doktor:</strong> {{ object.doktor }}</li>
     <li class="list-group-item"><strong>Qarovchi:</strong> {{ object.brought }}</li>
     <li class="list-group-item"><strong>Narx:</strong> {{ object.price }}</li>
     <li class="list-group-item"><strong>Xamshira narxi:</strong> {{ object.price_nurse }}</li>
@@ -58,6 +60,7 @@
     <li class="list-group-item"><strong>Labaratoria:</strong> {{ object.Labaratoria }}</li>
     <li class="list-group-item"><strong>UZI:</strong> {{ object.UZI }}</li>
     <li class="list-group-item"><strong>Sharx:</strong> {{ object.Izoh }}</li>
+    <li class="list-group-item"><strong>Vaqt:</strong> {{ object.created_at }}</li>
   </ul>
   <div class="card-body btn-group">
     <a href="{% url 'place-update' object.id %}" class="btn btn-warning">✏️ Tahrirlash</a>

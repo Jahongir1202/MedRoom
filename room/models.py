@@ -29,8 +29,10 @@ class Place(models.Model):
     is_full_room = models.BooleanField(default=False)
     name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
+    yashash_manzil = models.CharField(max_length=100,blank=True)
     job = models.CharField(max_length=100, blank=True)
     phone_number = models.BigIntegerField(null=True, blank=True)
+    doktor = models.CharField(max_length=100,blank=True)
     brought = models.CharField(max_length=100, blank=True)
     price = models.IntegerField(null=True, blank=True)
     price_nurse = models.IntegerField(null=True, blank=True)
@@ -40,6 +42,7 @@ class Place(models.Model):
     Labaratoria = models.IntegerField(blank=True,null=True)
     UZI = models.IntegerField(blank=True, null=True)
     Izoh = models.CharField(max_length=200,blank=True)
+
 
     @property
     def labaratoriya_total(self):
