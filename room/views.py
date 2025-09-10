@@ -58,7 +58,10 @@ def place_create(request, room_id, slot):
             place.place_slot = slot
             place.is_rented = True
             place.save()
-            update_daily_report()
+
+            from .services import update_daily_report
+            update_daily_report(place)  # endi save() bo‘lgandan keyin chaqiriladi
+
             return redirect('medroom-list')
     else:
         form = PlaceForm()
@@ -68,6 +71,7 @@ def place_create(request, room_id, slot):
         'room': medroom,
         'slot': slot,
     })
+
 class PlaceUpdateView(UpdateView):
     model = Place
     form_class = PlaceForm
@@ -75,9 +79,11 @@ class PlaceUpdateView(UpdateView):
     success_url = reverse_lazy('medroom-list')
 
     def form_valid(self, form):
+        old_total = self.get_object().total_cost  # eski qiymat
         response = super().form_valid(form)
+        # tahrir qilinganda farqni qo'shish
         from .services import update_daily_report
-        update_daily_report()  # 🟢 YANGILAB QO‘YAMIZ
+        update_daily_report(self.object, old_total=old_total)
         return response
 
 
@@ -133,16 +139,22 @@ def delete_expense(request, pk):
         return redirect('medroom-list')  # ✅ tuzatildi
     return render(request, 'delete_expense.html', {'expense': expense})
 
-def update_daily_report():
-    today = date.today()
+def update_daily_report(for_date=None):
+    from .models import DailyReport, Place
 
-    # Bugungi band qilingan joylarni olish
-    todays_places = Place.objects.filter(created_at__date=today, is_rented=True)
+    if not for_date:
+        from datetime import date
+        for_date = date.today()
 
-    # Jami narxni hisoblash
-    total_price = sum(place.total_cost for place in todays_places)
+    # O‘sha kunda yaratilgan joylarni olish
+    day_places = Place.objects.filter(
+        created_at__date=for_date,
+        is_rented=True
+    )
 
-    # Agar bugungi sana uchun record bor bo‘lsa yangilaydi, bo‘lmasa yaratadi
-    report, created = DailyReport.objects.get_or_create(date=today)
+    total_price = sum(place.total_cost for place in day_places)
+
+    # O‘sha kunga mos DailyReport ni yangilash
+    report, created = DailyReport.objects.get_or_create(date=for_date)
     report.total_price = total_price
     report.save()

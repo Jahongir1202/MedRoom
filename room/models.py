@@ -38,6 +38,7 @@ class Place(models.Model):
     price_nurse = models.IntegerField(null=True, blank=True)
     day = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     is_rented = models.BooleanField(default=False)
     Labaratoria = models.IntegerField(blank=True,null=True)
     UZI = models.IntegerField(blank=True, null=True)
@@ -47,13 +48,13 @@ class Place(models.Model):
     @property
     def labaratoriya_total(self):
         if self.Labaratoria and self.day:
-            return self.Labaratoria * self.day
+            return self.Labaratoria
         return 0
 
     @property
     def UZI_total(self):
         if self.UZI and self.day:
-            return self.UZI * self.day
+            return self.UZI
         return 0
 
 
